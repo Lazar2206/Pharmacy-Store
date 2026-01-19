@@ -1,0 +1,15 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Infrastructure.Repositories.Implementations
+{
+    public class BillItemRepository : GenericRepository<Domain.BillItem>, Interfaces.IBillItemRepository
+    {
+        public BillItemRepository(Context context) : base(context)
+        {
+        }
+    }
+}
