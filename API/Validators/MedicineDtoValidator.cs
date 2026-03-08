@@ -1,4 +1,5 @@
-﻿using API.Dtos;
+﻿
+using Application.Medicines.Dtos;
 using FluentValidation;
 
 namespace API.Validators

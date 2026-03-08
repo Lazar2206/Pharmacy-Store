@@ -7,6 +7,7 @@ C:\Users\PC\source\repos\Pharmacy\Domain\obj\Debug\net8.0\Domain.GeneratedMSBuil
 C:\Users\PC\source\repos\Pharmacy\Domain\obj\Debug\net8.0\Domain.AssemblyInfoInputs.cache
 C:\Users\PC\source\repos\Pharmacy\Domain\obj\Debug\net8.0\Domain.AssemblyInfo.cs
 C:\Users\PC\source\repos\Pharmacy\Domain\obj\Debug\net8.0\Domain.csproj.CoreCompileInputs.cache
+C:\Users\PC\source\repos\Pharmacy\Domain\obj\Debug\net8.0\Domain.sourcelink.json
 C:\Users\PC\source\repos\Pharmacy\Domain\obj\Debug\net8.0\Domain.dll
 C:\Users\PC\source\repos\Pharmacy\Domain\obj\Debug\net8.0\refint\Domain.dll
 C:\Users\PC\source\repos\Pharmacy\Domain\obj\Debug\net8.0\Domain.pdb

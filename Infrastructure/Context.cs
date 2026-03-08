@@ -1,25 +1,30 @@
 ﻿using Domain;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure
 {
-    public class Context: DbContext
+    public class Context : IdentityDbContext<ApplicationUser>
     {
         public DbSet<Medicine> Medicines { get; set; }
         public DbSet<Bill> Bills { get; set; }
-        public DbSet<BillItem> BillItems { get; set; }
         public DbSet<Patient> Patients { get; set; }
         public DbSet<PharmacyStore> PharmacyStores { get; set; }
 
+        public Context(DbContextOptions<Context> options) : base(options)
+        {
+        }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Data Source=(localdb)\mssqllocaldb;
-              Initial Catalog=Pharmacy; Integrated Security=True;");
-            optionsBuilder.LogTo(Console.WriteLine)
-                .EnableSensitiveDataLogging(); //loguj sve što radiš uz console writeline
+            optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Initial Catalog=Pharmacy;Integrated Security=True;");
         }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+           
+            base.OnModelCreating(modelBuilder);
+
             modelBuilder.Entity<Medicine>()
                 .HasKey(m => m.IdMedicine);
 
@@ -33,22 +38,17 @@ namespace Infrastructure
                 .HasKey(b => b.IdBill);
 
             modelBuilder.Entity<Bill>()
-                .OwnsMany(b => b.BillItems, bi =>
-                {
-                   
-                    bi.WithOwner().HasForeignKey(i => i.IdBill);
-                    bi.HasKey(i => new { i.Rb, i.IdBill });
-                    bi.Property(i => i.Rb).ValueGeneratedOnAdd();
-                });
+                 .OwnsMany(b => b.BillItems, bi =>
+                  {
+                      bi.ToTable("BillItems");
+                      bi.WithOwner().HasForeignKey(i => i.IdBill);
 
+                  bi.HasKey(i => new { i.IdBill, i.Rb });
 
-            //modelBuilder.Entity<BillItem>()
-            //    .HasKey(bi => new { bi.IdBill, bi.Rb });
+                   bi.Property(i => i.Rb)
+                   .ValueGeneratedNever();
+                    });
 
-            //modelBuilder.Entity<BillItem>()
-            //    .HasOne<Bill>()
-            //    .WithMany()
-            //    .HasForeignKey(bi => bi.IdBill);
 
             modelBuilder.Entity<Bill>()
                 .HasOne<Patient>()

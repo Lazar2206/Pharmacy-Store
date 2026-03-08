@@ -1,12 +1,33 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MediatR;
+using Infrastructure.UnitOfWork;
+using Application.Medicines.Queries.GetMedicineById;
+using Application.Medicines.Dtos;
 
-namespace Application.Medicines.Queries.GetMedicineById
+public class GetMedicineByIdQueryHandler
+    : IRequestHandler<GetMedicineByIdQuery, MedicineDto>
 {
-    internal class GetMedicineByIdQueryHandler
+    private readonly IUnitOfWork uow;
+
+    public GetMedicineByIdQueryHandler(IUnitOfWork uow)
     {
+        this.uow = uow;
+    }
+
+    public async Task<MedicineDto> Handle(
+        GetMedicineByIdQuery request,
+        CancellationToken cancellationToken)
+    {
+        var medicine = await uow.MedicineRepository
+            .GetByIdAsync(request.Id);
+
+        if (medicine == null)
+            return null; 
+
+        return new MedicineDto
+        {
+            IdMedicine = medicine.IdMedicine,
+            Name = medicine.Name,
+            Price = medicine.Price
+        };
     }
 }

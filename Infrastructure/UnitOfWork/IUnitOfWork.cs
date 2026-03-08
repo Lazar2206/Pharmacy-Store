@@ -9,12 +9,13 @@ namespace Infrastructure.UnitOfWork
 {
     public interface IUnitOfWork
     {
-        public IPharmacyStoreRepository PharmacyRepository { get; set; }
+        public IPharmacyStoreRepository PharmacyStoreRepository { get; set; }
         public IPatientRepository PatientRepository { get; set; }
         public IMedicineRepository MedicineRepository { get; set; }
         public IBillItemRepository BillItemRepository { get; set; }
         public IBillRepository BillRepository { get; set; }
-        void SaveChanges(); 
+        void SaveChanges();
+        Task SaveChangesAsync();
 
     }
 }

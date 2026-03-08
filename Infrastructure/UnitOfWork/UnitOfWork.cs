@@ -15,13 +15,13 @@ namespace Infrastructure.UnitOfWork
         public UnitOfWork(Context context)
         {
             this.context = context;
-            PharmacyRepository = new PharmacyStoreRepository(context);
+            PharmacyStoreRepository = new PharmacyStoreRepository(context);
             PatientRepository = new PatientRepository(context);
             MedicineRepository = new MedicineRepository(context);
             BillItemRepository = new BillItemRepository(context);
             BillRepository = new BillRepository(context);
         }
-        public IPharmacyStoreRepository PharmacyRepository { get; set; }
+        public IPharmacyStoreRepository PharmacyStoreRepository { get; set; }
         public IPatientRepository PatientRepository { get; set; }
         public IMedicineRepository MedicineRepository { get; set; }
         public IBillItemRepository BillItemRepository { get; set; }
@@ -30,6 +30,10 @@ namespace Infrastructure.UnitOfWork
         public void SaveChanges()
         {
             context.SaveChanges();
+        }
+        public async Task SaveChangesAsync()
+        {
+            await context.SaveChangesAsync();
         }
     }
 }

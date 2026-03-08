@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace Application.Medicines.Queries.GetMedicineById
 {
-    internal class Medicine
+    public class Medicine
     {
+        public int IdMedicine { get; set; }
+        public string Name { get; set; }
+        public decimal Price { get; set; }
     }
 }
